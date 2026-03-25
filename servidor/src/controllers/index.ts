@@ -17,3 +17,6 @@ app.get('/', (req: Request, res: Response) => {
     res.send(`Soy el servidor respondiendo`);
 })
 
+app.listen(PORT, () => {
+    console.log(`Servidor escuchando en el puerto ${PORT}`);
+})
