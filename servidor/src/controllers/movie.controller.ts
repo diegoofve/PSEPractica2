@@ -1,8 +1,6 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '../lib/db';
 import { MovieFilterSchema } from '../dtos/movie.dto';
-
-const prisma = new PrismaClient();
 
 export const getMovies = async (req: Request, res: Response): Promise<void> => {
   try {
