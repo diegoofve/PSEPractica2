@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, CardContent, Typography, Grid } from '@mui/material';
+import { Card, CardContent, Typography } from '@mui/material';
+import  Grid  from '@mui/material/Grid';
 
 // 1. Definimos la "forma" de los datos que esperamos recibir del backend
 interface Cine {
@@ -36,21 +37,21 @@ export default function CinesList() {
       </Typography>
       
       <Grid container spacing={2}>
-        {cines.map((cine) => (
-          <Grid item xs={12} sm={6} md={4} key={cine.id}>
-            <Card variant="outlined">
-              <CardContent>
-                <Typography variant="h6" color="primary">
-                  {cine.name}
-                </Typography>
-                <Typography color="textSecondary">
-                  Capacidad: {cine.capacity} butacas
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+      {cines.map((cine) => (
+        <Grid size={{ xs: 12, sm: 6, md: 4 }} key={cine.id}>  {/* ← Sin "item", usa "size" */}
+          <Card variant="outlined">
+            <CardContent>
+              <Typography variant="h6" color="primary">
+                {cine.name}
+              </Typography>
+              <Typography color="textSecondary">
+                Capacidad: {cine.capacity} butacas
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      ))}
+    </Grid>
     </div>
   );
 }
