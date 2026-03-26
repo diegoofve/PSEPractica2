@@ -6,5 +6,6 @@ const router = Router();
 
 router.post('/movies', getMovies);
 router.post('/cinemas', getCinemas); 
+router.get('/login', 
 
 export default router;
