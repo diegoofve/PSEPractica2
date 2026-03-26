@@ -156,6 +156,13 @@ exports.Prisma.TimeslotScalarFieldEnum = {
   end_time: 'end_time'
 };
 
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  password: 'password',
+  role: 'role'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -165,7 +172,11 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
-
+exports.Role = exports.$Enums.Role = {
+  CLIENT: 'CLIENT',
+  CINEMA: 'CINEMA',
+  ADMIN: 'ADMIN'
+};
 
 exports.Prisma.ModelName = {
   movie: 'movie',
@@ -173,7 +184,8 @@ exports.Prisma.ModelName = {
   sales: 'sales',
   show_timing: 'show_timing',
   theater: 'theater',
-  timeslot: 'timeslot'
+  timeslot: 'timeslot',
+  User: 'User'
 };
 
 /**

@@ -43,3 +43,16 @@ model timeslot {
   start_time String @db.VarChar(5)
   end_time   String @db.VarChar(5)
 }
+
+enum Role {
+  CLIENT
+  CINEMA
+  ADMIN
+}
+
+model User {
+  id       String @id @default(uuid())
+  email    String @unique
+  password String
+  role     Role   @default(CLIENT)
+}
