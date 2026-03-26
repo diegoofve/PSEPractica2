@@ -170,7 +170,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\Raul\\Documents\\PSEPractica2\\servidor\\generated\\prisma",
+      "value": "/Users/diegocastroalbarran/Desktop/pse/pse2/PSEPractica2/servidor/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -179,12 +179,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\Raul\\Documents\\PSEPractica2\\servidor\\prisma\\schema.prisma",
+    "sourceFilePath": "/Users/diegocastroalbarran/Desktop/pse/pse2/PSEPractica2/servidor/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
