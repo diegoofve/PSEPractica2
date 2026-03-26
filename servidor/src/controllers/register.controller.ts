@@ -14,7 +14,7 @@ export const register = async (req: Request, res: Response) => {
             data: {
                 email,
                 password: hashedPassword,
-                "CLIENT",
+                role: "CLIENT",
             },
         });
         res.status(201).json({ message: "Usuario creado", id: user.id});
