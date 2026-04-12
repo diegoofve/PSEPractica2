@@ -21,7 +21,6 @@ const getCinemas = async (req: Request, res: Response): Promise<void> => {
         whereClause.id = filters.id;
     }
 
-    // 3. Ejecutar consulta en Prisma (Recuerda: la tabla es 'theater')
     const cinemas = await prisma.theater.findMany({
         where: whereClause,
         // cd incluir relaciones si se pide conCatalog o withMovie??

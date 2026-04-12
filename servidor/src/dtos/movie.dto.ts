@@ -1,4 +1,4 @@
-import { z } from 'zod';
+/*import { z } from 'zod';
 
 export const MovieFilterSchema = z.object({
   id: z.number().int().optional(),
@@ -9,3 +9,24 @@ export const MovieFilterSchema = z.object({
 
 
 export type MovieFilterDTO = z.infer<typeof MovieFilterSchema>;
+*/
+// DTO para los filtros de findMovies
+export interface MovieFiltersDto {
+  id?: number;
+  sessionBefore?: Date;
+  sessionAfter?: Date;
+  cast?: string[];
+}
+
+// DTO para la respuesta de findMovies
+export interface MovieResponseDto {
+  id: number;
+  title: string;
+  cast: string;
+  sessions?: Array<{
+    cinema: string;
+    day: string;
+    start: string;
+    end: string;
+  }>;
+}
