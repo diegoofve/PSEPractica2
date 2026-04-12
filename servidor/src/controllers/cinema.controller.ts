@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 import { prisma } from '../lib/db';
 import { CinemaFilterSchema } from '../dtos/cinema.dto';
+import { get } from 'node:http';
 
-export const getCinemas = async (req: Request, res: Response): Promise<void> => {
+const getCinemas = async (req: Request, res: Response): Promise<void> => {
   try {
     // 1. Validar body
     const validation = CinemaFilterSchema.safeParse(req.body);
@@ -33,3 +34,8 @@ export const getCinemas = async (req: Request, res: Response): Promise<void> => 
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
+
+export const CinemaController = {
+  getCinemas
+  //TODO resto de movidas del CRUD
+}

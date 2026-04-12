@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { prisma } from '../lib/db';
 import { MovieFilterSchema } from '../dtos/movie.dto';
 
-export const getMovies = async (req: Request, res: Response): Promise<void> => {
+const getMovies = async (req: Request, res: Response): Promise<void> => {
   try {
     const validation = MovieFilterSchema.safeParse(req.body);
 
@@ -33,3 +33,8 @@ export const getMovies = async (req: Request, res: Response): Promise<void> => {
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
+
+export const MovieController = {
+  getMovies
+  //TODO el resto de movidas de crud aqui tmb
+}
