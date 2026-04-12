@@ -1428,6 +1428,36 @@ export namespace Prisma {
    */
 
 
+  /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    theaters: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    theaters?: boolean | UserCountOutputTypeCountTheatersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTheatersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: theaterWhereInput
+  }
+
 
   /**
    * Models
@@ -5491,18 +5521,21 @@ export namespace Prisma {
     id: number | null
     name: string | null
     capacity: number | null
+    userId: string | null
   }
 
   export type TheaterMaxAggregateOutputType = {
     id: number | null
     name: string | null
     capacity: number | null
+    userId: string | null
   }
 
   export type TheaterCountAggregateOutputType = {
     id: number
     name: number
     capacity: number
+    userId: number
     _all: number
   }
 
@@ -5521,18 +5554,21 @@ export namespace Prisma {
     id?: true
     name?: true
     capacity?: true
+    userId?: true
   }
 
   export type TheaterMaxAggregateInputType = {
     id?: true
     name?: true
     capacity?: true
+    userId?: true
   }
 
   export type TheaterCountAggregateInputType = {
     id?: true
     name?: true
     capacity?: true
+    userId?: true
     _all?: true
   }
 
@@ -5626,6 +5662,7 @@ export namespace Prisma {
     id: number
     name: string
     capacity: number
+    userId: string | null
     _count: TheaterCountAggregateOutputType | null
     _avg: TheaterAvgAggregateOutputType | null
     _sum: TheaterSumAggregateOutputType | null
@@ -5651,35 +5688,54 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     capacity?: boolean
+    userId?: boolean
+    user?: boolean | theater$userArgs<ExtArgs>
   }, ExtArgs["result"]["theater"]>
 
   export type theaterSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     capacity?: boolean
+    userId?: boolean
+    user?: boolean | theater$userArgs<ExtArgs>
   }, ExtArgs["result"]["theater"]>
 
   export type theaterSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     capacity?: boolean
+    userId?: boolean
+    user?: boolean | theater$userArgs<ExtArgs>
   }, ExtArgs["result"]["theater"]>
 
   export type theaterSelectScalar = {
     id?: boolean
     name?: boolean
     capacity?: boolean
+    userId?: boolean
   }
 
-  export type theaterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "capacity", ExtArgs["result"]["theater"]>
+  export type theaterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "capacity" | "userId", ExtArgs["result"]["theater"]>
+  export type theaterInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | theater$userArgs<ExtArgs>
+  }
+  export type theaterIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | theater$userArgs<ExtArgs>
+  }
+  export type theaterIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | theater$userArgs<ExtArgs>
+  }
 
   export type $theaterPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "theater"
-    objects: {}
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs> | null
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
       capacity: number
+      userId: string | null
     }, ExtArgs["result"]["theater"]>
     composites: {}
   }
@@ -6074,6 +6130,7 @@ export namespace Prisma {
    */
   export interface Prisma__theaterClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends theater$userArgs<ExtArgs> = {}>(args?: Subset<T, theater$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6106,6 +6163,7 @@ export namespace Prisma {
     readonly id: FieldRef<"theater", 'Int'>
     readonly name: FieldRef<"theater", 'String'>
     readonly capacity: FieldRef<"theater", 'Int'>
+    readonly userId: FieldRef<"theater", 'String'>
   }
     
 
@@ -6122,6 +6180,10 @@ export namespace Prisma {
      * Omit specific fields from the theater
      */
     omit?: theaterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: theaterInclude<ExtArgs> | null
     /**
      * Filter, which theater to fetch.
      */
@@ -6141,6 +6203,10 @@ export namespace Prisma {
      */
     omit?: theaterOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: theaterInclude<ExtArgs> | null
+    /**
      * Filter, which theater to fetch.
      */
     where: theaterWhereUniqueInput
@@ -6158,6 +6224,10 @@ export namespace Prisma {
      * Omit specific fields from the theater
      */
     omit?: theaterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: theaterInclude<ExtArgs> | null
     /**
      * Filter, which theater to fetch.
      */
@@ -6207,6 +6277,10 @@ export namespace Prisma {
      */
     omit?: theaterOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: theaterInclude<ExtArgs> | null
+    /**
      * Filter, which theater to fetch.
      */
     where?: theaterWhereInput
@@ -6255,6 +6329,10 @@ export namespace Prisma {
      */
     omit?: theaterOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: theaterInclude<ExtArgs> | null
+    /**
      * Filter, which theaters to fetch.
      */
     where?: theaterWhereInput
@@ -6298,6 +6376,10 @@ export namespace Prisma {
      */
     omit?: theaterOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: theaterInclude<ExtArgs> | null
+    /**
      * The data needed to create a theater.
      */
     data: XOR<theaterCreateInput, theaterUncheckedCreateInput>
@@ -6331,6 +6413,10 @@ export namespace Prisma {
      */
     data: theaterCreateManyInput | theaterCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: theaterIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -6345,6 +6431,10 @@ export namespace Prisma {
      * Omit specific fields from the theater
      */
     omit?: theaterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: theaterInclude<ExtArgs> | null
     /**
      * The data needed to update a theater.
      */
@@ -6397,6 +6487,10 @@ export namespace Prisma {
      * Limit how many theaters to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: theaterIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -6411,6 +6505,10 @@ export namespace Prisma {
      * Omit specific fields from the theater
      */
     omit?: theaterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: theaterInclude<ExtArgs> | null
     /**
      * The filter to search for the theater to update in case it exists.
      */
@@ -6438,6 +6536,10 @@ export namespace Prisma {
      */
     omit?: theaterOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: theaterInclude<ExtArgs> | null
+    /**
      * Filter which theater to delete.
      */
     where: theaterWhereUniqueInput
@@ -6458,6 +6560,25 @@ export namespace Prisma {
   }
 
   /**
+   * theater.user
+   */
+  export type theater$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
    * theater without action
    */
   export type theaterDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6469,6 +6590,10 @@ export namespace Prisma {
      * Omit specific fields from the theater
      */
     omit?: theaterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: theaterInclude<ExtArgs> | null
   }
 
 
@@ -7631,6 +7756,8 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     role?: boolean
+    theaters?: boolean | User$theatersArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7655,10 +7782,18 @@ export namespace Prisma {
   }
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "role", ExtArgs["result"]["user"]>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    theaters?: boolean | User$theatersArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
-    objects: {}
+    objects: {
+      theaters: Prisma.$theaterPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       email: string
@@ -8058,6 +8193,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    theaters<T extends User$theatersArgs<ExtArgs> = {}>(args?: Subset<T, User$theatersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$theaterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8108,6 +8244,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -8126,6 +8266,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -8143,6 +8287,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -8192,6 +8340,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where?: UserWhereInput
@@ -8240,6 +8392,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where?: UserWhereInput
@@ -8282,6 +8438,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to create a User.
      */
@@ -8330,6 +8490,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to update a User.
      */
@@ -8397,6 +8561,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The filter to search for the User to update in case it exists.
      */
     where: UserWhereUniqueInput
@@ -8423,6 +8591,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
@@ -8443,6 +8615,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.theaters
+   */
+  export type User$theatersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the theater
+     */
+    select?: theaterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the theater
+     */
+    omit?: theaterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: theaterInclude<ExtArgs> | null
+    where?: theaterWhereInput
+    orderBy?: theaterOrderByWithRelationInput | theaterOrderByWithRelationInput[]
+    cursor?: theaterWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TheaterScalarFieldEnum | TheaterScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8454,6 +8650,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
   }
 
 
@@ -8510,7 +8710,8 @@ export namespace Prisma {
   export const TheaterScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    capacity: 'capacity'
+    capacity: 'capacity',
+    userId: 'userId'
   };
 
   export type TheaterScalarFieldEnum = (typeof TheaterScalarFieldEnum)[keyof typeof TheaterScalarFieldEnum]
@@ -8549,6 +8750,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -8812,12 +9021,16 @@ export namespace Prisma {
     id?: IntFilter<"theater"> | number
     name?: StringFilter<"theater"> | string
     capacity?: IntFilter<"theater"> | number
+    userId?: StringNullableFilter<"theater"> | string | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type theaterOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     capacity?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
   }
 
   export type theaterWhereUniqueInput = Prisma.AtLeast<{
@@ -8827,12 +9040,15 @@ export namespace Prisma {
     NOT?: theaterWhereInput | theaterWhereInput[]
     name?: StringFilter<"theater"> | string
     capacity?: IntFilter<"theater"> | number
+    userId?: StringNullableFilter<"theater"> | string | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id">
 
   export type theaterOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     capacity?: SortOrder
+    userId?: SortOrderInput | SortOrder
     _count?: theaterCountOrderByAggregateInput
     _avg?: theaterAvgOrderByAggregateInput
     _max?: theaterMaxOrderByAggregateInput
@@ -8847,6 +9063,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"theater"> | number
     name?: StringWithAggregatesFilter<"theater"> | string
     capacity?: IntWithAggregatesFilter<"theater"> | number
+    userId?: StringNullableWithAggregatesFilter<"theater"> | string | null
   }
 
   export type timeslotWhereInput = {
@@ -8901,6 +9118,7 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
+    theaters?: TheaterListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -8908,6 +9126,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    theaters?: theaterOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -8918,6 +9137,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     password?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
+    theaters?: TheaterListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -9099,29 +9319,34 @@ export namespace Prisma {
   export type theaterCreateInput = {
     name: string
     capacity: number
+    user?: UserCreateNestedOneWithoutTheatersInput
   }
 
   export type theaterUncheckedCreateInput = {
     id?: number
     name: string
     capacity: number
+    userId?: string | null
   }
 
   export type theaterUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     capacity?: IntFieldUpdateOperationsInput | number
+    user?: UserUpdateOneWithoutTheatersNestedInput
   }
 
   export type theaterUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     capacity?: IntFieldUpdateOperationsInput | number
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type theaterCreateManyInput = {
     id?: number
     name: string
     capacity: number
+    userId?: string | null
   }
 
   export type theaterUpdateManyMutationInput = {
@@ -9133,6 +9358,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     capacity?: IntFieldUpdateOperationsInput | number
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type timeslotCreateInput = {
@@ -9179,6 +9405,7 @@ export namespace Prisma {
     email: string
     password: string
     role?: $Enums.Role
+    theaters?: theaterCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -9186,6 +9413,7 @@ export namespace Prisma {
     email: string
     password: string
     role?: $Enums.Role
+    theaters?: theaterUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -9193,6 +9421,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    theaters?: theaterUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -9200,6 +9429,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    theaters?: theaterUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -9449,10 +9679,36 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type theaterCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     capacity?: SortOrder
+    userId?: SortOrder
   }
 
   export type theaterAvgOrderByAggregateInput = {
@@ -9464,17 +9720,37 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     capacity?: SortOrder
+    userId?: SortOrder
   }
 
   export type theaterMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     capacity?: SortOrder
+    userId?: SortOrder
   }
 
   export type theaterSumOrderByAggregateInput = {
     id?: SortOrder
     capacity?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type timeslotCountOrderByAggregateInput = {
@@ -9508,6 +9784,16 @@ export namespace Prisma {
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
     notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
+  export type TheaterListRelationFilter = {
+    every?: theaterWhereInput
+    some?: theaterWhereInput
+    none?: theaterWhereInput
+  }
+
+  export type theaterOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -9565,8 +9851,70 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type UserCreateNestedOneWithoutTheatersInput = {
+    create?: XOR<UserCreateWithoutTheatersInput, UserUncheckedCreateWithoutTheatersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTheatersInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneWithoutTheatersNestedInput = {
+    create?: XOR<UserCreateWithoutTheatersInput, UserUncheckedCreateWithoutTheatersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTheatersInput
+    upsert?: UserUpsertWithoutTheatersInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTheatersInput, UserUpdateWithoutTheatersInput>, UserUncheckedUpdateWithoutTheatersInput>
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type theaterCreateNestedManyWithoutUserInput = {
+    create?: XOR<theaterCreateWithoutUserInput, theaterUncheckedCreateWithoutUserInput> | theaterCreateWithoutUserInput[] | theaterUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: theaterCreateOrConnectWithoutUserInput | theaterCreateOrConnectWithoutUserInput[]
+    createMany?: theaterCreateManyUserInputEnvelope
+    connect?: theaterWhereUniqueInput | theaterWhereUniqueInput[]
+  }
+
+  export type theaterUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<theaterCreateWithoutUserInput, theaterUncheckedCreateWithoutUserInput> | theaterCreateWithoutUserInput[] | theaterUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: theaterCreateOrConnectWithoutUserInput | theaterCreateOrConnectWithoutUserInput[]
+    createMany?: theaterCreateManyUserInputEnvelope
+    connect?: theaterWhereUniqueInput | theaterWhereUniqueInput[]
+  }
+
   export type EnumRoleFieldUpdateOperationsInput = {
     set?: $Enums.Role
+  }
+
+  export type theaterUpdateManyWithoutUserNestedInput = {
+    create?: XOR<theaterCreateWithoutUserInput, theaterUncheckedCreateWithoutUserInput> | theaterCreateWithoutUserInput[] | theaterUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: theaterCreateOrConnectWithoutUserInput | theaterCreateOrConnectWithoutUserInput[]
+    upsert?: theaterUpsertWithWhereUniqueWithoutUserInput | theaterUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: theaterCreateManyUserInputEnvelope
+    set?: theaterWhereUniqueInput | theaterWhereUniqueInput[]
+    disconnect?: theaterWhereUniqueInput | theaterWhereUniqueInput[]
+    delete?: theaterWhereUniqueInput | theaterWhereUniqueInput[]
+    connect?: theaterWhereUniqueInput | theaterWhereUniqueInput[]
+    update?: theaterUpdateWithWhereUniqueWithoutUserInput | theaterUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: theaterUpdateManyWithWhereWithoutUserInput | theaterUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: theaterScalarWhereInput | theaterScalarWhereInput[]
+  }
+
+  export type theaterUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<theaterCreateWithoutUserInput, theaterUncheckedCreateWithoutUserInput> | theaterCreateWithoutUserInput[] | theaterUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: theaterCreateOrConnectWithoutUserInput | theaterCreateOrConnectWithoutUserInput[]
+    upsert?: theaterUpsertWithWhereUniqueWithoutUserInput | theaterUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: theaterCreateManyUserInputEnvelope
+    set?: theaterWhereUniqueInput | theaterWhereUniqueInput[]
+    disconnect?: theaterWhereUniqueInput | theaterWhereUniqueInput[]
+    delete?: theaterWhereUniqueInput | theaterWhereUniqueInput[]
+    connect?: theaterWhereUniqueInput | theaterWhereUniqueInput[]
+    update?: theaterUpdateWithWhereUniqueWithoutUserInput | theaterUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: theaterUpdateManyWithWhereWithoutUserInput | theaterUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: theaterScalarWhereInput | theaterScalarWhereInput[]
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -9679,6 +10027,48 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedEnumRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
@@ -9694,6 +10084,120 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRoleFilter<$PrismaModel>
     _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
+  export type UserCreateWithoutTheatersInput = {
+    id?: string
+    email: string
+    password: string
+    role?: $Enums.Role
+  }
+
+  export type UserUncheckedCreateWithoutTheatersInput = {
+    id?: string
+    email: string
+    password: string
+    role?: $Enums.Role
+  }
+
+  export type UserCreateOrConnectWithoutTheatersInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTheatersInput, UserUncheckedCreateWithoutTheatersInput>
+  }
+
+  export type UserUpsertWithoutTheatersInput = {
+    update: XOR<UserUpdateWithoutTheatersInput, UserUncheckedUpdateWithoutTheatersInput>
+    create: XOR<UserCreateWithoutTheatersInput, UserUncheckedCreateWithoutTheatersInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTheatersInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTheatersInput, UserUncheckedUpdateWithoutTheatersInput>
+  }
+
+  export type UserUpdateWithoutTheatersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  }
+
+  export type UserUncheckedUpdateWithoutTheatersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  }
+
+  export type theaterCreateWithoutUserInput = {
+    name: string
+    capacity: number
+  }
+
+  export type theaterUncheckedCreateWithoutUserInput = {
+    id?: number
+    name: string
+    capacity: number
+  }
+
+  export type theaterCreateOrConnectWithoutUserInput = {
+    where: theaterWhereUniqueInput
+    create: XOR<theaterCreateWithoutUserInput, theaterUncheckedCreateWithoutUserInput>
+  }
+
+  export type theaterCreateManyUserInputEnvelope = {
+    data: theaterCreateManyUserInput | theaterCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type theaterUpsertWithWhereUniqueWithoutUserInput = {
+    where: theaterWhereUniqueInput
+    update: XOR<theaterUpdateWithoutUserInput, theaterUncheckedUpdateWithoutUserInput>
+    create: XOR<theaterCreateWithoutUserInput, theaterUncheckedCreateWithoutUserInput>
+  }
+
+  export type theaterUpdateWithWhereUniqueWithoutUserInput = {
+    where: theaterWhereUniqueInput
+    data: XOR<theaterUpdateWithoutUserInput, theaterUncheckedUpdateWithoutUserInput>
+  }
+
+  export type theaterUpdateManyWithWhereWithoutUserInput = {
+    where: theaterScalarWhereInput
+    data: XOR<theaterUpdateManyMutationInput, theaterUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type theaterScalarWhereInput = {
+    AND?: theaterScalarWhereInput | theaterScalarWhereInput[]
+    OR?: theaterScalarWhereInput[]
+    NOT?: theaterScalarWhereInput | theaterScalarWhereInput[]
+    id?: IntFilter<"theater"> | number
+    name?: StringFilter<"theater"> | string
+    capacity?: IntFilter<"theater"> | number
+    userId?: StringNullableFilter<"theater"> | string | null
+  }
+
+  export type theaterCreateManyUserInput = {
+    id?: number
+    name: string
+    capacity: number
+  }
+
+  export type theaterUpdateWithoutUserInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type theaterUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type theaterUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
   }
 
 

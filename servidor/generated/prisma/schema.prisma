@@ -33,9 +33,11 @@ model show_timing {
 }
 
 model theater {
-  id       Int    @id @default(autoincrement())
-  name     String @db.VarChar(50)
+  id       Int     @id @default(autoincrement())
+  name     String  @db.VarChar(50)
   capacity Int
+  userId   String? // es para decir el admin de cada cine?
+  user     User?   @relation(fields: [userId], references: [id])
 }
 
 model timeslot {
@@ -51,8 +53,9 @@ enum Role {
 }
 
 model User {
-  id       String @id @default(uuid())
-  email    String @unique
+  id       String    @id @default(uuid())
+  email    String    @unique
   password String
-  role     Role   @default(CLIENT)
+  role     Role      @default(CLIENT)
+  theaters theater[]
 }

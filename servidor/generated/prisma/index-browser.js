@@ -147,7 +147,8 @@ exports.Prisma.Show_timingScalarFieldEnum = {
 exports.Prisma.TheaterScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  capacity: 'capacity'
+  capacity: 'capacity',
+  userId: 'userId'
 };
 
 exports.Prisma.TimeslotScalarFieldEnum = {
@@ -171,6 +172,11 @@ exports.Prisma.SortOrder = {
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 exports.Role = exports.$Enums.Role = {
   CLIENT: 'CLIENT',
