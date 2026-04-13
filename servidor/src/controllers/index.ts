@@ -1,7 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import type { Request, Response } from 'express';
-import routes from '../routes/routes';
+import protectedRouter from '../middlewares/protectedRouter';
+import publicRouter from '../middlewares/publicRouter';
+import passport from 'passport';
+import { JWTStrategy } from '../lib/auth';
 
 const PORT = 3000;
 
@@ -17,7 +20,6 @@ app.get('/', (req: Request, res: Response) => {
     res.send(`Soy el servidor respondiendo`);
 })
 
-app.use('/',routes);
 passport.use('jwt', JWTStrategy); // <-- Configuramos Passport con nuestra estrategia JWT personalizada
 app.use(passport.initialize()); // <-- Middleware #3: Passport (para autenticación)
 app.use(publicRouter); // <-- Middleware #4: Router de rutas públicas (sin autenticación)

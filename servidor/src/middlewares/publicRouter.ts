@@ -9,12 +9,12 @@ import { AuthController } from '../controllers/auth.controller'; //?¿??
  * NOTA: En este caso, no se requiere autenticación para acceder a estas rutas, por lo que no se utiliza Passport aquí.
  */
 
-const router = Router();
+const publicRouter = Router();
 
 // POST /register
-router.post('/register', AuthController.register);
+publicRouter.post('/register', AuthController.register);
 
 // POST /login 
-router.post('/login', AuthController.login);
+publicRouter.post('/login', AuthController.login);
 
-export default router;
+export default publicRouter;

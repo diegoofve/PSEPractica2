@@ -12,12 +12,12 @@ import { authorize } from './auth';
  * 
  */
 
-const router = Router();
+const protectedRouter = Router();
 
 // POST /movies (ruta, middleware de autenticación, controller)
-router.post('/movies', passport.authenticate('jwt', { session: false }), authorize([Role.CINEMA, Role.ADMIN]), MovieController.getMovies);
+protectedRouter.post('/movies', passport.authenticate('jwt', { session: false }), authorize([Role.CINEMA, Role.ADMIN]), MovieController.getMovies);
 
 // POST /cinemas (ruta, middleware de autenticación, controller)
-router.post('/cinemas', passport.authenticate('jwt', { session: false }), authorize([Role.CINEMA, Role.ADMIN]), CinemaController.getCinemas);
+protectedRouter.post('/cinemas', passport.authenticate('jwt', { session: false }), authorize([Role.CINEMA, Role.ADMIN]), CinemaController.getCinemas);
 
-export default router;
+export default protectedRouter;
