@@ -1,9 +1,3 @@
-/*import "dotenv/config";
-import { PrismaClient } from "../../generated/prisma";
-
-const prisma = new PrismaClient();
-
-export { prisma };*/
 import "dotenv/config";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/client";

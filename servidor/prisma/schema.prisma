@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -8,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model movie {
+model Movie {
   id     Int    @id @default(autoincrement())
   name   String @db.VarChar(50)
   actors String @db.VarChar(200)
@@ -48,7 +47,7 @@ model ShowTiming {
 }
 
 
-model theater {
+model Theater {
   id       Int    @id @default(autoincrement())
   name     String @db.VarChar(50)
   capacity Int
@@ -77,6 +76,5 @@ model User {
   email String @unique
   password String
   role Role @default(CLIENT)
-  theaters theater[]
-   @@map("user")
+  @@map("user")
 }

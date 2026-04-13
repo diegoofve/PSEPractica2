@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { MovieController } from '../controllers/movie.controller'; 
 import passport from 'passport';
 import { CinemaController } from '../controllers/cinema.controller';
-import { Role } from "../../generated/prisma";
+import { Role } from "@prisma/client";
 import { authorize } from './auth';
 
 /**
