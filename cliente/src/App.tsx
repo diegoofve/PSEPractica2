@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { Button, Typography } from '@mui/material';
 
 // Importamos tu componente
-import CinesList from './components/CinesList';
+import CinesList from './routes/cines/CinesList';
 
 // Creamos un componente rápido para la página de inicio
 function Home() {

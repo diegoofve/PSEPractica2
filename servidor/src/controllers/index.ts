@@ -18,6 +18,11 @@ app.get('/', (req: Request, res: Response) => {
 })
 
 app.use('/',routes);
+passport.use('jwt', JWTStrategy); // <-- Configuramos Passport con nuestra estrategia JWT personalizada
+app.use(passport.initialize()); // <-- Middleware #3: Passport (para autenticación)
+app.use(publicRouter); // <-- Middleware #4: Router de rutas públicas (sin autenticación)
+app.use(protectedRouter); // <-- Middleware #5: Router de rutas protegidas (con autenticación)
+
 
 app.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`);
