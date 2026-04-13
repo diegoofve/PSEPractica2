@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import {jxtDecode} from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 
 interface JwtPayload {
     interface: JwtPayload;
@@ -9,7 +9,7 @@ interface JwtPayload {
 
 interface AuthContextType {
     token: string | null;
-    user: JwtPayloado | null;
+    user: JwtPayload | null;
     login: (token: string) => void;
     logout: () => void;
 }
