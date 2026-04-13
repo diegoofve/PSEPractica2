@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import { prisma } from '../lib/db';
-import { MovieFilterSchema } from '../dtos/movie.dto';
+import { MovieFiltersDto } from '../dto/movie.dto';
 
 const getMovies = async (req: Request, res: Response): Promise<void> => {
   try {
-    const validation = MovieFilterSchema.safeParse(req.body);
+    const validation = MovieFiltersDto.safeParse(req.body); //TODO mismo fix que cinema.controller
 
     if (!validation.success) {
        res.status(400).json({ errors: validation.error.issues });

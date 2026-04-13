@@ -17,7 +17,7 @@ export const AuthService = {
                 data: {
                     email,
                     password: hashedPassword,
-                    role: role ?? Role.CLIENT,
+                    role: Role.CLIENT,
                 },
                 select: { id: true, email: true, role: true },
             });

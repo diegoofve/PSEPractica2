@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import { prisma } from '../lib/db';
-import { CinemaFilterSchema } from '../dtos/cinema.dto';
+import { CinemaFiltersDto } from '../dto/cinema.dto';
 import { get } from 'node:http';
 
 const getCinemas = async (req: Request, res: Response): Promise<void> => {
   try {
     // 1. Validar body
-    const validation = CinemaFilterSchema.safeParse(req.body);
+    const validation = CinemaFiltersDto.safeParse(req.body); //TODO fix (ahora no es un tipo de zod asiq ns cmo va)
 
     if (!validation.success) {
        res.status(400).json({ errors: validation.error.issues });
