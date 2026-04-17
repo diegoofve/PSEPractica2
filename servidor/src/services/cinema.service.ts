@@ -1,7 +1,7 @@
 import { prisma } from '../lib/db';
 import type { CinemaFiltersDto, CinemaResponseDto } from '../dto/cinema.dto';
 import moment from 'moment';
-import type { Theater } from '@prisma/client';
+
 
 export const CinemaService = {
 
@@ -41,7 +41,7 @@ export const CinemaService = {
     });
 
     // Mapeo profesional para devolver resultados acorde a CinemaResponseDto
-    return theaters.map(theater => {
+    return theaters.map((theater:any) => {
       const response: CinemaResponseDto = {
         id: theater.id,
         name: theater.name,

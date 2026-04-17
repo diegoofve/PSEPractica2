@@ -2,30 +2,13 @@ import { Request, Response } from 'express';
 import { prisma } from '../lib/db';
 import { CinemaFiltersDto } from '../dto/cinema.dto';
 import { get } from 'node:http';
+import { CinemaService } from '../services/cinema.service';
 
 const getCinemas = async (req: Request, res: Response): Promise<void> => {
   try {
-    // 1. Validar body
-    const validation = CinemaFiltersDto.safeParse(req.body); //TODO fix (ahora no es un tipo de zod asiq ns cmo va)
+    const filters = req.body;
 
-    if (!validation.success) {
-       res.status(400).json({ errors: validation.error.issues });
-       return;
-    }
-
-    const filters = validation.data;
-    const whereClause: any = {};
-
-//filtros
-    if (filters.id) {
-        whereClause.id = filters.id;
-    }
-
-    const cinemas = await prisma.theater.findMany({
-        where: whereClause,
-        // cd incluir relaciones si se pide conCatalog o withMovie??
-    });
-
+    const cinemas = await CinemaService.getCinemas(filters);
     res.status(200).json(cinemas);
 
   } catch (error) {
