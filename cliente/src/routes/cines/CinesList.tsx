@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import axios, { type AxiosResponse } from "axios";
 import { Container, Typography, Grid, Box, CircularProgress } from "@mui/material";
@@ -10,7 +9,6 @@ export const CinesList = () => {
     const [loading, setLoading] = useState(true);
     
     useEffect(() => {
-        // Llamada a la API con cartelera (implementación simple no, lo siguiente)
         axios.post('http://localhost:3000/cinemas', { withCatalog: true }).then((res: AxiosResponse) => {
             const { data } = res;
             if (data && data.length > 0) {
