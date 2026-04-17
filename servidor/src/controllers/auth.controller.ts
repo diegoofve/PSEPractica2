@@ -4,7 +4,7 @@ import { prisma } from '../lib/db';
 import jwt from 'jsonwebtoken';
 import { isValidEmail } from '../lib/utils';
 import { AuthService } from '../services/auth.service';
-import { Role } from '@prisma/client';
+import { Role } from '@prisma/client'
 
 // Registro de usuarios
 const register = async (req: Request, res: Response): Promise<void> => {
