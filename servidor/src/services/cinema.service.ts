@@ -1,5 +1,5 @@
 import { prisma } from '../lib/db';
-import type { CinemaFiltersDto, CinemaResponseDto } from '../dto/cinema.dto';
+import type { CinemaCreationDto, CinemaDeletionDto, CinemaEditDto, CinemaFiltersDto, CinemaResponseDto } from '../dto/cinema.dto';
 import moment from 'moment';
 
 
@@ -73,11 +73,24 @@ const getCinemas = async (filters: CinemaFiltersDto): Promise<CinemaResponseDto[
   });
 };
 
+//WIP 
+const createCinema = async (data: CinemaCreationDto): Promise<Boolean> => {
+  return false;
+}
+
+//WIP
+const editCinema = async (data: CinemaEditDto): Promise<Boolean> => {
+  return false;
+}
+
+//WIP
+const deleteCinema = async (cinema: CinemaDeletionDto): Promise<Boolean> => {
+  return false;
+}
+
 export const CinemaService = {
   getCinemas,
-  // TO-DO: Actualización de cines
-
-  // TO-DO: Borrado de cines
-
-  // TO-DO: Creación de cines
+  createCinema,
+  editCinema,
+  deleteCinema
 };

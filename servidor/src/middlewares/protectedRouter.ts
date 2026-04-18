@@ -15,9 +15,35 @@ import { authorize } from './auth';
 const protectedRouter = Router();
 
 // POST /movies (ruta, middleware de autenticación, controller)
-protectedRouter.post('/movies', passport.authenticate('jwt', { session: false }), authorize([Role.CINEMA, Role.ADMIN]), MovieController.getMovies);
+protectedRouter.get('/movies', //passport.authenticate('jwt', { session: false }), authorize([Role.CINEMA, Role.ADMIN]), 
+MovieController.getMovies);
+
+protectedRouter.post('/movies', //autenticacion
+MovieController.createMovie
+);
+
+protectedRouter.put('/movies', //autenticacion
+MovieController.editMovie
+);
+
+protectedRouter.delete('/movies', //autenticacion
+MovieController.deleteMovie
+);
 
 // POST /cinemas (ruta, middleware de autenticación, controller)
-protectedRouter.post('/cinemas', passport.authenticate('jwt', { session: false }), authorize([Role.CINEMA, Role.ADMIN]), CinemaController.getCinemas);
+protectedRouter.get('/cinemas', //passport.authenticate('jwt', { session: false }), authorize([Role.CINEMA, Role.ADMIN]), 
+CinemaController.getCinemas);
+
+protectedRouter.post('/cinemas',// autenticacion
+CinemaController.createCinema
+);
+
+protectedRouter.put('/cinemas',// autenticacion
+CinemaController.editCinema
+);
+
+protectedRouter.delete('/cinemas',// autenticacion
+CinemaController.deleteCinema
+);
 
 export default protectedRouter;

@@ -18,6 +18,36 @@ export interface MovieFiltersDto {
   cast?: string[];
 }
 
+//DTO para crear nuevas movies
+export interface MovieCreationDto {
+  title: string;
+  cast: string;
+  sessions: Array<{
+    cinema: string;
+    day: string;
+    start: string;
+    end: string;
+  }>;
+}
+
+//DTO para editar movies existentes
+export interface MovieEditDto {
+  id: number;
+  title?: string;
+  cast?: string;
+  sessions?: Array<{
+    cinema: string;
+    day: string;
+    start: string;
+    end: string;
+  }>;
+}
+
+//DTO para borrar movies
+export interface MovieDeletionDto {
+  id: number;
+}
+
 // DTO para la respuesta de findMovies
 export interface MovieResponseDto {
   id: number;

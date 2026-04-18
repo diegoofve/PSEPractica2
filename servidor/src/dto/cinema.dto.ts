@@ -7,6 +7,26 @@ export interface CinemaFiltersDto {
   withCatalog?: boolean;
 }
 
+//DTO para crear nuevos cinemas
+export interface CinemaCreationDto {
+  name: string;
+  capacity: number;
+  catalog?: CinemaCatalogDto[]; 
+}
+
+//DTO para editar cinemas existentes
+export interface CinemaEditDto {
+  id: number;
+  name?: string;
+  capacity?: number;
+  catalog?: CinemaCatalogDto[]; 
+}
+
+//DTO para borrar cinemas
+export interface CinemaDeletionDto{
+  id: number;
+}
+
 // DTO para las carteleras
 export interface CinemaCatalogDto {
   id: number;

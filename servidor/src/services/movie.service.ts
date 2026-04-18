@@ -1,5 +1,5 @@
 import { prisma } from '../lib/db';
-import type { MovieFiltersDto, MovieResponseDto } from '../dto/movie.dto';
+import type { MovieCreationDto, MovieDeletionDto, MovieEditDto, MovieFiltersDto, MovieResponseDto } from '../dto/movie.dto';
 import moment from 'moment';
 
 /**
@@ -59,14 +59,25 @@ const getMovies = async(filters: MovieFiltersDto): Promise<MovieResponseDto[]> =
   return results;
 }
 
+//WIP
+const createMovie = async (data: MovieCreationDto): Promise<Boolean> => {
+  return false;
+}
 
+//WIP
+const editMovie = async (data: MovieEditDto): Promise<Boolean> => {
+  return false;
+}
+
+//WIP
+const deleteMovie = async (cinema: MovieDeletionDto): Promise<Boolean> => {
+  return false;
+}
 
 
 export const MovieService = {
   getMovies,
-  // TO-DO: Actualización de películas
-
-  // TO-DO: Borrado de películas
-
-  // TO-DO: Creación de películas
+  createMovie,
+  editMovie,
+  deleteMovie
 }
