@@ -4,7 +4,7 @@ import { CinemaService } from '../services/cinema.service';
 
 const getCinemas = async (req: Request, res: Response): Promise<void> => {
   try {
-    const validation = CinemaFiltersSchema.safeParse(req.body);
+    const validation = CinemaFiltersSchema.safeParse(req.query);
 
     if(!validation.success){
       res.status(400).json({error: 'Request incorrecta'})

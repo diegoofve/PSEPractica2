@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-//lo dejamos de usar import axios, { type AxiosResponse } from "axios";
+import { type AxiosResponse } from "axios";
 import { Container, Typography, Grid, Box, CircularProgress } from "@mui/material";
 import type { CinemaResponseDto } from "../../types/cines.types";
 import { CineCard } from "./CinesCard";
@@ -11,15 +11,17 @@ export const CinesList = () => {
     const [loading, setLoading] = useState(true);
     
     useEffect(() => {
-        api.post('/cinemas', { withCatalog: true })
-            .then((res) => {
-                setCines(res.data);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.error("Error al cargar cines:", error.response?.data || error.message);
-                setLoading(false);
-            });
+        api.get('/cinemas', { params: { withCatalog: true } })
+        .then((res: AxiosResponse) => {
+            const { data } = res;
+            if (data && data.length > 0) {
+                setCines(data as CinemaResponseDto[]);
+            }
+            setLoading(false);
+        })
+        .catch(() => {
+            setLoading(false);
+        });
     }, []);
 
     return (
