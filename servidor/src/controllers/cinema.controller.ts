@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { prisma } from '../lib/db';
-import { CinemaFiltersDto } from '../dto/cinema.dto';
+import { CinemaCreationSchema, CinemaDeletionSchema, CinemaEditSchema, CinemaFiltersDto, CinemaFiltersSchema } from '../dto/cinema.dto';
 import { get } from 'node:http';
 import { CinemaService } from '../services/cinema.service';
 
@@ -9,9 +9,14 @@ import { CinemaService } from '../services/cinema.service';
 
 const getCinemas = async (req: Request, res: Response): Promise<void> => {
   try {
-    const filters = req.body;
+    const validation = CinemaFiltersSchema.safeParse(req.body);
 
-    const cinemas = await CinemaService.getCinemas(filters);
+    if(!validation.success){
+      res.status(400).json({error: 'Request incorrecta'})
+      return;
+    }
+
+    const cinemas = await CinemaService.getCinemas(validation.data);
     res.status(200).json(cinemas);
 
   } catch (error) {
@@ -22,9 +27,13 @@ const getCinemas = async (req: Request, res: Response): Promise<void> => {
 
 const createCinema = async (req: Request, res: Response): Promise<void> => {
   try{
-    const data = req.body;
+    const validation = CinemaCreationSchema.safeParse(req.body);
 
-    const DBresponse = await CinemaService.createCinema(data);
+    if(!validation.success){
+      res.status(400).json({error: 'Request incorrecta'})
+      return;
+    }
+    const DBresponse = await CinemaService.createCinema(validation.data);
     
 //devuelvo el cine, si se llega aqui no ha habido errores al crearlo
     res.status(201).json(DBresponse);
@@ -36,9 +45,14 @@ const createCinema = async (req: Request, res: Response): Promise<void> => {
 
 const editCinema = async (req: Request, res: Response): Promise<void> => {
   try{
-    const data = req.body;
+    const validation = CinemaEditSchema.safeParse(req.body);
 
-    const DBresponse = await CinemaService.editCinema(data);
+    if(!validation.success){
+      res.status(400).json({error: 'Request incorrecta'})
+      return;
+    }
+
+    const DBresponse = await CinemaService.editCinema(validation.data);
 
     //devuelvo el cine, si se llega aqui no ha habido errores al editarlo
     res.status(200).json(DBresponse);
@@ -55,9 +69,14 @@ const editCinema = async (req: Request, res: Response): Promise<void> => {
 
 const deleteCinema = async (req: Request, res: Response): Promise<void> => {
   try{
-    const data = req.body;
+    const validation = CinemaDeletionSchema.safeParse(req.body);
 
-    await CinemaService.deleteCinema(data);
+    if(!validation.success){
+      res.status(400).json({error: 'Request incorrecta'})
+      return;
+    }
+
+    await CinemaService.deleteCinema(validation.data);
 
     //Si algo saliera mal, lo coge el catch
     res.status(204).send();
