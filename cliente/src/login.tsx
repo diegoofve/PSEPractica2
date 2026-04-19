@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Box, Typography, TextField, Button, CircularProgress, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
-// import { useAuth } from ''; esto no se de donde pillo el auth 
-//hay que importar tmb la estancia de axios
+import { api } from './lib/api.ts';
+
 
 
 export const Login = () => {
@@ -14,7 +14,7 @@ export const Login = () => {
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
-    //cambiarlo xdnt const {login} = useAuth();
+    const {login} = useAuth();
 
     const validate = () => {
         const newErrors: typeof errors = {};
@@ -37,7 +37,7 @@ export const Login = () => {
     setErrors({});
 
     try {
-      const response = await api.post('/auth/login', { email, password });//esta bine puesto??
+      const response = await api.post('/auth/login', { email, password });
       
       login(response.data.token);
       
@@ -102,7 +102,7 @@ export const Login = () => {
         disabled={loading}
         sx={{ mt: 2, height: 48 }}
       >
-        {/* Feedback visual: Spinner de carga o texto normal */}
+        
         {loading ? <CircularProgress size={24} color="inherit" /> : 'Entrar'}
       </Button>
     </Box>

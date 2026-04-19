@@ -2,9 +2,8 @@ import { createContext, useContext, useState } from "react";
 import {jwtDecode} from "jwt-decode";
 
 interface JwtPayload {
-    interface: JwtPayload;
     sub: string;
-    ROLE: 'CLIENT' | 'CINEMA' | 'ADMIN';
+    role: 'CLIENT' | 'CINEMA' | 'ADMIN';
 }
 
 interface AuthContextType {
@@ -14,17 +13,17 @@ interface AuthContextType {
     logout: () => void;
 }
 
-const AuthContext = createContext<AuthContextType> | null>(null);
+const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider =  ({children }: {children: React.ReactNode}) => {
     const [token, setToken] = useState<string | null>
     (localStorage.getItem('token'));
-    const [user, setUser] = useState<JwtPayload | null>(token ? jxtDecode(token) : null);
+    const [user, setUser] = useState<JwtPayload | null>(token ? jwtDecode(token) : null);
 
 const login = (newToken: string) => {
     localStorage.setItem('token', newToken);
     setToken(newToken);
-    setUser(jxtDecode<JwtPayload>(newToken));
+    setUser(jwtDecode<JwtPayload>(newToken));
 };
 
 const logout = () => {
