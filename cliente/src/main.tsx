@@ -8,6 +8,7 @@ import App from './App.tsx'
 import {Login} from './login.tsx'
 import { CinesList } from './routes/cines/CinesList.tsx'
 import { Register } from './register.tsx'
+import { AuthProvider } from './context/AuthContext'
 
 const theme = createTheme({
   palette: {
@@ -30,14 +31,16 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
         <Routes>
-          <Route path="/" Component={App}/>
-          <Route path="/cines" Component={CinesList}/>
-          <Route path="/login" Component={Login}/>
-          <Route path="/register" Component={Register}/>
+          <Route path="/" element={<App />} />
+            <Route path="/cines" element={<CinesList />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
         </Routes>
       </BrowserRouter>
+      </AuthProvider>
     </ThemeProvider>
   </StrictMode>,
 )

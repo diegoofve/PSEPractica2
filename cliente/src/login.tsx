@@ -69,7 +69,7 @@ export const Login = () => {
         Iniciar sesión
       </Typography>
 
-      {/* Alerta si el backend devuelve un error (Feedback visual) */}
+      
       {errors.api && <Alert severity="error">{errors.api}</Alert>}
 
       <TextField
