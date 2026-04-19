@@ -50,7 +50,7 @@ export const Register = () => {
 
     try {
       // 1. Enviamos { email, password } justo como espera tu const { email, password } = req.body;
-      const response = await api.post('/auth/register', { email, password });
+      const response = await api.post('/register', { email, password });
       
       // 2. Extraemos el { message: "Usuario creado" } que devuelve tu res.status(201) 
       setErrors({ success: response.data.message + ' Redirigiendo al login...' });
