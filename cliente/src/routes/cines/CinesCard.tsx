@@ -13,6 +13,8 @@ import {
 } from "@mui/material";
 import { ExpandMore as ExpandMoreIcon, AccessAlarm, Theaters, Place } from '@mui/icons-material';
 import type { CinemaResponseDto } from "../../types/cines.types";
+import { useAuth } from "../../context/AuthContext";
+import { Edit } from '@mui/icons-material';
 
 interface CineProps {
     cinema: CinemaResponseDto;
@@ -27,6 +29,8 @@ export const CineCard = ({ cinema }: CineProps) => {
   };
 
   const hasCatalog = cinema.catalog && cinema.catalog.length > 0;
+  const { user } = useAuth();
+  const canEdit = user?.role === 'ADMIN';
 
   return (
     <Card 
@@ -70,7 +74,7 @@ export const CineCard = ({ cinema }: CineProps) => {
       
       <Divider />
       
-      <CardActions sx={{ px: 2, py: 1.5 }}>
+      <CardActions sx={{ px: 2, py: 1.5, display: 'flex', justifyContent: 'space-between'}}>
         {hasCatalog ? (
           <Button 
             size="small" 
@@ -92,6 +96,17 @@ export const CineCard = ({ cinema }: CineProps) => {
           </Typography>
         )}
       </CardActions>
+
+        {canEdit && (
+          <Button
+            size="small" variant="outlined" color="warning"
+            startIcon={<Edit />}
+            sx={{ borderRadius: 2 }}
+            onClick={() => console.log('editar cine', cinema.id)}
+          >
+            Editar
+          </Button>
+        )}
 
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <Box sx={{ px: 2, pb: 2, pt: 1, bgcolor: 'rgba(0, 0, 0, 0.02)' }}>
