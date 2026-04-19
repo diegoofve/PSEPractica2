@@ -8,17 +8,16 @@ import { JWTStrategy } from '../lib/auth';
 
 const PORT = 3000;
 
-//Instanciamos express
 const app = express();
 
 //JSON
 app.use(express.json());
 app.use(cors());
 
-passport.use('jwt', JWTStrategy); // <-- Configuramos Passport con nuestra estrategia JWT personalizada
-app.use(passport.initialize()); // <-- Middleware #3: Passport (para autenticación)
-app.use(publicRouter); // <-- Middleware #4: Router de rutas públicas (sin autenticación)
-app.use(protectedRouter); // <-- Middleware #5: Router de rutas protegidas (con autenticación)
+passport.use('jwt', JWTStrategy);
+app.use(passport.initialize());
+app.use(publicRouter);
+app.use(protectedRouter);
 
 
 app.listen(PORT, () => {

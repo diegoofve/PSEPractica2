@@ -3,12 +3,10 @@ import { isValidEmail } from '../lib/utils';
 import { AuthService } from '../services/auth.service';
 import { Role } from '@prisma/client'
 
-// Registro de usuarios
 const register = async (req: Request, res: Response): Promise<void> => {
     try {
         const { email, password } = req.body;
 
-        // Validación "a pincho" (sin middlewares)
         if (!email || !isValidEmail(email)) {
             res.status(400).json({ error: 'Email no válido' });
         }

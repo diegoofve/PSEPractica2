@@ -20,7 +20,6 @@ export const MovieCreationSchema = z.object({
   }))
 }).strict();
 
-//DTO para editar movies existentes
 export const MovieEditSchema = z.object({
   id: z.number().int(),
   title: z.string().optional(),
@@ -33,12 +32,10 @@ export const MovieEditSchema = z.object({
   })).optional()
 }).strict();
 
-//DTO para borrar movies
 export const MovieDeletionSchema = z.object({
   id: z.number().int()
 }).strict();
 
-// DTO para la respuesta de findMovies
 export const MovieResponseSchema = z.object({
   id: z.number().int(),
   title: z.string(),

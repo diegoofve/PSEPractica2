@@ -1,6 +1,5 @@
 import z from 'zod';
 
-// DTO para las carteleras
 export const CinemaCatalogSchema = z.object({
   id: z.number().int(),
   title: z.string(),
@@ -11,7 +10,6 @@ export const CinemaCatalogSchema = z.object({
   }))
 });
 
-// DTO para los filtros a findCinemas
 export const CinemaFiltersSchema = z.object({
   id: z.coerce.number().int().optional(),
   sessionBefore: z.coerce.date().optional(),
@@ -35,12 +33,10 @@ export const CinemaEditSchema = z.object({
   catalog: z.array(CinemaCatalogSchema).optional()
 }).strict();
 
-//DTO para borrar cinemas
 export const CinemaDeletionSchema = z.object({
   id: z.number().int()
 }).strict();
 
-// DTO para la respuesta de findCinemas
 export const CinemaResponseSchema = z.object({
   id: z.number().int(),
   name: z.string(),

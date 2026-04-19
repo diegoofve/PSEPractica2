@@ -41,7 +41,7 @@ export const Login = () => {
       
       login(response.data.token);
       
-      navigate('/cinemas');
+      navigate('/cines');
     } catch (error: any) {
       setErrors({ api: error.response?.data?.message || 'Error al iniciar sesión' });
     } finally {

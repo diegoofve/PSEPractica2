@@ -14,8 +14,8 @@ export const JWTStrategy = new Strategy(options, async (payload, done) => {
             // Evitar recibir hash (es innecesario)
         });
 
-        if (user) return done(null, user); // <-- Usuario validado
-        return done(null, false); // <-- Usuario no encontrado
+        if (user) return done(null, user); //valido
+        return done(null, false); //fallo
 
     }catch (error) {
         return done(null, payload);
