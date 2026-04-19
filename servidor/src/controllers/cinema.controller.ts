@@ -26,12 +26,8 @@ const createCinema = async (req: Request, res: Response): Promise<void> => {
 
     const DBresponse = await CinemaService.createCinema(data);
     
-    if(DBresponse){
-      res.status(201).json({ result: 'Se ha añadido el cine correctamente.'})
-    }else{
-      res.status(400).json({ error: 'Datos insuficientes / incorrectos. No se ha podido añadir el cine'})
-    }
-
+//devuelvo el cine, si se llega aqui no ha habido errores al crearlo
+    res.status(201).json(DBresponse);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'Error interno del servidor' });
@@ -42,16 +38,18 @@ const editCinema = async (req: Request, res: Response): Promise<void> => {
   try{
     const data = req.body;
 
-    const DBresponse = await CinemaService.createCinema(data);
+    const DBresponse = await CinemaService.editCinema(data);
 
-    if(DBresponse){
-      res.status(200).json({ result: 'Editado correctamente'})
-    }else{
-      res.status(400).json({ error: 'Datos insuficientes / incorrectos. No se ha podido editar el cine'})
-    }
-  }catch (error) {
+    //devuelvo el cine, si se llega aqui no ha habido errores al editarlo
+    res.status(200).json(DBresponse);
+  }catch (error: any) {
     console.log(error);
-    res.status(500).json({ error: 'Error interno del servidor '});
+
+    if(error.message === 'NOT_FOUND'){
+      res.status(404).json({ error: 'Cine no encontrado'});
+    }else{
+      res.status(500).json({ error: 'Error interno del servidor '});
+    }
   }
 };
 
@@ -59,16 +57,18 @@ const deleteCinema = async (req: Request, res: Response): Promise<void> => {
   try{
     const data = req.body;
 
-    const DBresponse = await CinemaService.deleteCinema(data);
+    await CinemaService.deleteCinema(data);
 
-    if(DBresponse){
-      res.status(204).json({ result: 'Borrado correctamente'})
-    }else{
-      res.status(400).json({ error: 'Datos insuficientes / incorrectos. No se ha podido borrar el cine'})
-    }
-  }catch (error) {
+    //Si algo saliera mal, lo coge el catch
+    res.status(204).send();
+  }catch (error: any) {
     console.log(error);
-    res.status(500).json({ error: 'Error interno del servidor '});
+
+    if(error.message === 'NOT_FOUND'){
+      res.status(404).json({ error: 'Cine no encontrado'});
+    }else{
+      res.status(500).json({ error: 'Error interno del servidor '});
+    }
   }
 };
 

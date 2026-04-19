@@ -73,19 +73,51 @@ const getCinemas = async (filters: CinemaFiltersDto): Promise<CinemaResponseDto[
   });
 };
 
-//WIP 
-const createCinema = async (data: CinemaCreationDto): Promise<Boolean> => {
-  return false;
+const createCinema = async (data: CinemaCreationDto): Promise<CinemaResponseDto> => {
+  const cinema = await prisma.theater.create({
+    data: {
+      name: data.name,
+      capacity: data.capacity
+    }
+  });
+
+  return {
+    id: cinema.id,
+    name: cinema.name,
+    capacity: cinema.capacity
+  };
 }
 
-//WIP
-const editCinema = async (data: CinemaEditDto): Promise<Boolean> => {
-  return false;
+const editCinema = async (data: CinemaEditDto): Promise<CinemaResponseDto> => {
+  const exists = await prisma.theater.findUnique({ where: {id: data.id}});
+  if(!exists){
+    throw new Error('NOT_FOUND');
+  }
+
+  const updateData: any = {}
+  if(data.name) updateData.name = data.name;
+  if(data.capacity) updateData.capacity = data.capacity;
+  if(data.catalog) updateData.catalog = data.catalog;
+
+  const cinema = await prisma.theater.update({
+    where: {id: data.id},
+    data: updateData
+  });
+
+  return {
+    id: cinema.id,
+    name: cinema.name,
+    capacity: cinema.capacity
+  }
 }
 
-//WIP
-const deleteCinema = async (cinema: CinemaDeletionDto): Promise<Boolean> => {
-  return false;
+const deleteCinema = async (data: CinemaDeletionDto): Promise<void> => {
+  const exists = await prisma.theater.findUnique({ where: {id: data.id}});
+  if(!exists){
+    throw new Error('NOT_FOUND');
+  }
+
+  await prisma.theater.delete({ where: {id: data.id}});
 }
 
 export const CinemaService = {
