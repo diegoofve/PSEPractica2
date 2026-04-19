@@ -1,7 +1,4 @@
 import type { Request, Response } from 'express';
-import bcrypt from 'bcryptjs';
-import { prisma } from '../lib/db';
-import jwt from 'jsonwebtoken';
 import { isValidEmail } from '../lib/utils';
 import { AuthService } from '../services/auth.service';
 import { Role } from '@prisma/client'
