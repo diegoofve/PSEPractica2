@@ -5,7 +5,9 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import './index.css'
 import App from './App.tsx'
+import Login from './login.tsx'
 import { CinesList } from './routes/cines/CinesList.tsx'
+//import { Login } from '@mui/icons-material'
 
 const theme = createTheme({
   palette: {
@@ -32,6 +34,7 @@ createRoot(document.getElementById('root')!).render(
         <Routes>
           <Route path="/" Component={App}/>
           <Route path="/cines" Component={CinesList}/>
+          <Route path="/login" Component={Login}
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
