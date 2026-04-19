@@ -9,12 +9,14 @@ import {
   Box,
   Chip,
   Divider,
-  useTheme
+  useTheme,
+  TextField
 } from "@mui/material";
 import { ExpandMore as ExpandMoreIcon, AccessAlarm, Theaters, Place } from '@mui/icons-material';
 import type { CinemaResponseDto } from "../../types/cines.types";
 import { useAuth } from "../../context/AuthContext";
 import { Edit } from '@mui/icons-material';
+import { api } from "../../lib/api";
 
 interface CineProps {
     cinema: CinemaResponseDto;
@@ -31,6 +33,15 @@ export const CineCard = ({ cinema }: CineProps) => {
   const hasCatalog = cinema.catalog && cinema.catalog.length > 0;
   const { user } = useAuth();
   const canEdit = user?.role === 'ADMIN';
+
+  const [editing, setEditing] = useState(false);
+  const [editName, setEditName] = useState(cinema.name);
+  const [editCapacity, setEditCapacity] = useState(cinema.capacity);
+
+  const handleSave = async () => {
+    await api.put('/cinemas', { id: cinema.id, name: editName, capacity: editCapacity });
+    setEditing(false);
+  };
 
   return (
     <Card 
@@ -72,6 +83,14 @@ export const CineCard = ({ cinema }: CineProps) => {
         </Box>
       </CardContent>
       
+      {editing && (
+        <Box sx={{ px: 2, pb: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <TextField label="Nombre" size="small" value={editName} onChange={e => setEditName(e.target.value)} />
+          <TextField label="Aforo" size="small" type="number" value={editCapacity} onChange={e => setEditCapacity(Number(e.target.value))} />
+          <Button variant="contained" size="small" onClick={handleSave}>Guardar</Button>
+        </Box>
+      )}
+
       <Divider />
       
       <CardActions sx={{ px: 2, py: 1.5, display: 'flex', justifyContent: 'space-between'}}>
@@ -102,7 +121,7 @@ export const CineCard = ({ cinema }: CineProps) => {
             size="small" variant="outlined" color="warning"
             startIcon={<Edit />}
             sx={{ borderRadius: 2 }}
-            onClick={() => console.log('editar cine', cinema.id)}
+            onClick={() => setEditing(!editing)}
           >
             Editar
           </Button>
