@@ -13,13 +13,13 @@ import { AuthProvider } from './context/AuthContext'
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#5e35b1', // Deep Purple
+      main: '#5e35b1', 
       light: '#9062e5',
       dark: '#280680',
       contrastText: '#fff',
     },
     secondary: {
-      main: '#7b1fa2', // Secondary Purple
+      main: '#7b1fa2',
       light: '#ae52d4',
       dark: '#4a0072',
       contrastText: '#fff',

@@ -5,31 +5,25 @@ import { api } from './lib/api.ts';
 // hay que importat la instancia de axios configurada
 
 export const Register = () => {
-  // 1. Estados del formulario
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState<{ email?: string; password?: string; confirmPassword?: string; api?: string; success?: string }>({});
-  
-  // 2. Estado de feedback visual (Carga)
-  const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-  // 3. Hook de navegación
   const navigate = useNavigate();
 
-  // 4. Validación manual del formulario
   const validate = () => {
     const newErrors: typeof errors = {};
-    
-    // Validación de email
+    //email
     if (!email) newErrors.email = 'El email es obligatorio';
     else if (!email.includes('@')) newErrors.email = 'El email no es válido';
     
-    // Validación de contraseña
+    //contraseña
     if (!password) newErrors.password = 'La contraseña es obligatoria';
     else if (password.length < 6) newErrors.password = 'Mínimo 6 caracteres';
     
-    // Validación de confirmación
+    //confirmación
     if (password !== confirmPassword) {
         newErrors.confirmPassword = 'Las contraseñas no coinciden';
     }
@@ -38,31 +32,25 @@ export const Register = () => {
     return Object.keys(newErrors).length === 0; // Retorna true si no hay errores
   };
 
-// 5. Envío del formulario
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); 
 
-    // Validamos en el lado del cliente antes de enviar nada al backend
     if (!validate()) return;
 
     setLoading(true); 
     setErrors({}); 
 
     try {
-      // 1. Enviamos { email, password } justo como espera tu const { email, password } = req.body;
       const response = await api.post('/register', { email, password });
       
-      // 2. Extraemos el { message: "Usuario creado" } que devuelve tu res.status(201) 
       setErrors({ success: response.data.message + ' Redirigiendo al login...' });
       
-      // 3. Esperamos 2 segundos y mandamos al usuario a iniciar sesión
       setTimeout(() => {
           navigate('/login');
       }, 2000);
 
     } catch (error: any) {
-      // 4. Extraemos el { error: "El email ya existe" } que devuelve tu res.status(400) 
-      // Axios guarda la respuesta del servidor dentro de error.response.data
       setErrors({ api: error.response?.data?.error || 'Error de conexión con el servidor' });
     } finally {
       setLoading(false); 
@@ -129,12 +117,11 @@ export const Register = () => {
       <Button 
         type="submit" 
         variant="contained" 
-        color="secondary" // Usamos otro color para diferenciarlo del login
+        color="secondary"
         fullWidth 
         disabled={loading}
         sx={{ mt: 2, height: 48 }}
       >
-        {/* Spinner de carga mientras esperamos al servidor [cite: 250-251] */}
         {loading ? <CircularProgress size={24} color="inherit" /> : 'Registrarse'}
       </Button>
       
