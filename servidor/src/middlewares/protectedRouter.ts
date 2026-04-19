@@ -15,34 +15,34 @@ import { authorize } from './auth';
 const protectedRouter = Router();
 
 // POST /movies (ruta, middleware de autenticación, controller)
-protectedRouter.get('/movies', //passport.authenticate('jwt', { session: false }), authorize([Role.CINEMA, Role.ADMIN]), 
+protectedRouter.get('/movies', passport.authenticate('jwt', { session: false }), authorize([Role.CLIENT, Role.CINEMA, Role.ADMIN]), 
 MovieController.getMovies);
 
-protectedRouter.post('/movies', //autenticacion
+protectedRouter.post('/movies', passport.authenticate('jwt', { session: false }), authorize([Role.CINEMA, Role.ADMIN]), 
 MovieController.createMovie
 );
 
-protectedRouter.put('/movies', //autenticacion
+protectedRouter.put('/movies', passport.authenticate('jwt', { session: false }), authorize([Role.CINEMA, Role.ADMIN]), 
 MovieController.editMovie
 );
 
-protectedRouter.delete('/movies', //autenticacion
+protectedRouter.delete('/movies', passport.authenticate('jwt', { session: false }), authorize([Role.ADMIN]), 
 MovieController.deleteMovie
 );
 
 // POST /cinemas (ruta, middleware de autenticación, controller)
-protectedRouter.get('/cinemas', //passport.authenticate('jwt', { session: false }), authorize([Role.CINEMA, Role.ADMIN]), 
+protectedRouter.get('/cinemas', passport.authenticate('jwt', { session: false }), authorize([Role.CLIENT, Role.CINEMA, Role.ADMIN]),
 CinemaController.getCinemas);
 
-protectedRouter.post('/cinemas',// autenticacion
+protectedRouter.post('/cinemas', passport.authenticate('jwt', { session: false }), authorize([Role.CINEMA, Role.ADMIN]),
 CinemaController.createCinema
 );
 
-protectedRouter.put('/cinemas',// autenticacion
+protectedRouter.put('/cinemas', passport.authenticate('jwt', { session: false }), authorize([Role.CINEMA, Role.ADMIN]),
 CinemaController.editCinema
 );
 
-protectedRouter.delete('/cinemas',// autenticacion
+protectedRouter.delete('/cinemas', passport.authenticate('jwt', { session: false }), authorize([Role.ADMIN]),
 CinemaController.deleteCinema
 );
 

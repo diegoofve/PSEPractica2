@@ -1,16 +1,18 @@
 import { Request, Response } from 'express';
-import { prisma } from '../lib/db';
-import { MovieFiltersDto } from '../dto/movie.dto';
+import { MovieCreationSchema, MovieDeletionSchema, MovieEditSchema, MovieFiltersSchema } from '../dto/movie.dto';
 import { MovieService } from '../services/movie.service';
 
-// TODO revisar los codigos http de respuesta para ver que sean adecuados a cada situacion. 
-// El servicio deberia estar devolviendo true/false?=???
 
 const getMovies = async (req: Request, res: Response): Promise<void> => {
   try {
-    const filters = req.body;
+    const validation = MovieFiltersSchema.safeParse(req.body);
 
-    const movies = await MovieService.getMovies(filters);
+    if(!validation.success){
+      res.status(400).json({error: 'Request incorrecta'});
+      return;
+    }
+
+    const movies = await MovieService.getMovies(validation.data);
     res.status(200).json(movies);
 
   } catch (error) {
@@ -21,55 +23,69 @@ const getMovies = async (req: Request, res: Response): Promise<void> => {
 
 const createMovie = async (req: Request, res: Response): Promise<void> => {
   try {
-    const data = req.body;
+    const validation = MovieCreationSchema.safeParse(req.body);
 
-    const DBresponse = await MovieService.createMovie(data);
-
-    if(DBresponse){
-      res.status(201).json({ result: 'Se ha añadido el cine correctamente.'})
-    }else{
-      res.status(400).json({ error: 'Datos insuficientes / incorrectos. No se ha podido añadir el cine'})
+    if(!validation.success){
+      res.status(400).json({error: 'Request incorrecta'});
+      return;
     }
 
-  } catch (error) {
+    await MovieService.createMovie(validation.data);
+
+    res.status(201).json({ result: 'Se ha añadido el cine correctamente.'})
+  } catch (error: any) {
     console.error(error);
-    res.status(500).json({ error: 'Error interno del servidor' });
+    if(error.message === 'TIMESLOT_NOT_FOUND'){
+      res.status(400).json({ error: 'No existe la hora seleccionada'});
+    }else{
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
   }
 };
 
 const editMovie = async (req: Request, res: Response): Promise<void> => {
   try {
-    const data = req.body;
+    const validation = MovieEditSchema.safeParse(req.body);
 
-    const DBresponse = await MovieService.editMovie(data);
-    
-    if(DBresponse){
-      res.status(200).json({ result: 'Editado correctamente'})
-    }else{
-      res.status(400).json({ error: 'Datos insuficientes / incorrectos. No se ha podido editar el cine'})
+    if(!validation.success){
+      res.status(400).json({error: 'Request incorrecta'});
+      return;
     }
 
-  } catch (error) {
+    await MovieService.editMovie(validation.data);
+
+    res.status(200).json({ result: 'Editado correctamente'})
+  } catch (error:any) {
     console.error(error);
-    res.status(500).json({ error: 'Error interno del servidor' });
+    if(error.message === 'NOT_FOUND'){
+      res.status(404).json({ error: 'No se encuentra la pelicula'});
+    }else if(error.message === 'TIMESLOT_NOT_FOUND'){
+      res.status(400).json({ error: 'No existe la hora seleccionada'});
+    }else{
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
   }
 };
 
 const deleteMovie = async (req: Request, res: Response): Promise<void> => {
   try {
-    const data = req.body;
+    const validation = MovieDeletionSchema.safeParse(req.body);
 
-    const DBresponse = await MovieService.deleteMovie(data);
-    
-    if(DBresponse){
-      res.status(204).json({ result: 'Borrado correctamente'})
-    }else{
-      res.status(400).json({ error: 'Datos insuficientes / incorrectos. No se ha podido borrar el cine'})
+    if(!validation.success){
+      res.status(400).json({error: 'Request incorrecta'});
+      return;
     }
 
-  } catch (error) {
+    await MovieService.deleteMovie(validation.data);
+    
+    res.status(204).json({ result: 'Borrado correctamente'})
+  } catch (error: any) {
     console.error(error);
+    if (error.message === 'NOT_FOUND') {
+      res.status(404).json({ error: 'Película no encontrada' });
+    } else {
     res.status(500).json({ error: 'Error interno del servidor' });
+    }
   }
 };
 

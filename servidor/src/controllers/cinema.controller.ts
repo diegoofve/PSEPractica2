@@ -1,11 +1,6 @@
 import { Request, Response } from 'express';
-import { prisma } from '../lib/db';
-import { CinemaCreationSchema, CinemaDeletionSchema, CinemaEditSchema, CinemaFiltersDto, CinemaFiltersSchema } from '../dto/cinema.dto';
-import { get } from 'node:http';
+import { CinemaCreationSchema, CinemaDeletionSchema, CinemaEditSchema, CinemaFiltersSchema } from '../dto/cinema.dto';
 import { CinemaService } from '../services/cinema.service';
-
-// TODO revisar los codigos http de respuesta para ver que sean adecuados a cada situacion. 
-// El servicio deberia estar devolviendo true/false?=???
 
 const getCinemas = async (req: Request, res: Response): Promise<void> => {
   try {
